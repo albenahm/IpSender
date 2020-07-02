@@ -7,7 +7,7 @@ import java.net.UnknownHostException;
 public class main {
 
 	public static void main(String[] args) throws UnknownHostException, IOException {
-		Sender sender = new Sender(InetAddress.getLocalHost().getHostAddress(),9999);
+		Sender sender = new Sender(InetAddress.getLocalHost().getHostAddress(),8888);
 		sender.start();
 
 	}

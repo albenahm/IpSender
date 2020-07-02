@@ -42,7 +42,7 @@ public class rec {
 	}
 	
 	public static void main(String [] args) {
-		rec server = new rec(9999);
+		rec server = new rec(8888);
 		server.run();
 	}
 
