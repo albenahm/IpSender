@@ -15,18 +15,14 @@ public class rec {
 	DataOutputStream out;
 	DataInputStream in;
 
-
-	
 	public rec(int port) {
 		this.port = port;
 	}
-	
+
 	public void run() {
 		ServerSocket server = null;
 		Socket client = null;
 
-		
-		// creates a server on a given port and posts address to login
 		try {
 			server = new ServerSocket(port);
 			client = server.accept();
@@ -38,13 +34,12 @@ public class rec {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		
+
 	}
-	
-	public static void main(String [] args) {
+
+	public static void main(String[] args) {
 		rec server = new rec(8888);
 		server.run();
 	}
-
 
 }

@@ -17,59 +17,60 @@ import java.util.Enumeration;
 public class Sender {
 	Socket client;
 	DataOutputStream out;
-	DataInputStream in ;
+	DataInputStream in;
 	String address;
 	int port;
-	
+
 	public Sender(String address, int port) throws UnknownHostException, IOException {
-		this.address=address;
-		this.port=port;
-		this.client=new Socket(address, port);
+		this.address = address;
+		this.port = port;
+		this.client = new Socket(address, port);
 	}
-	
-	
+
 	public String takeIP() {
 
 		String ip;
 		try {
-		    Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
-		    while (interfaces.hasMoreElements()) {
-		        NetworkInterface iface = interfaces.nextElement();
-		        // filters out 127.0.0.1 and inactive interfaces
-		        if (iface.isLoopback() || !iface.isUp())
-		            continue;
+			Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
+			while (interfaces.hasMoreElements()) {
+				NetworkInterface iface = interfaces.nextElement();
+				// filters out 127.0.0.1 and inactive interfaces
+				if (iface.isLoopback() || !iface.isUp())
+					continue;
 
-		        Enumeration<InetAddress> addresses = iface.getInetAddresses();
-		        while(addresses.hasMoreElements()) {
-		            InetAddress addr = addresses.nextElement();
+				Enumeration<InetAddress> addresses = iface.getInetAddresses();
+				while (addresses.hasMoreElements()) {
+					InetAddress addr = addresses.nextElement();
 
-		            // *EDIT*
-		            if (addr instanceof Inet6Address) continue;
+					// *EDIT*
+					if (addr instanceof Inet6Address)
+						continue;
 
-		            ip = addr.getHostAddress();
-		            return ip;
-		        }
-		    }
+					ip = addr.getHostAddress();
+					return ip;
+				}
+			}
 		} catch (SocketException e) {
-		    throw new RuntimeException(e);
+			throw new RuntimeException(e);
 		}
-		
+
 		return null;
 	}
-	
+	/**
+	 * to send Ip to destination 
+	 */
 	public void start() {
 		try {
 			out = new DataOutputStream(client.getOutputStream());
 			in = new DataInputStream(client.getInputStream());
 			out.writeUTF(takeIP());
-	
+
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
 
 }
